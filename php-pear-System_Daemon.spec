@@ -7,7 +7,7 @@ Summary:	%{_pearname} - Turn PHP scripts into Linux daemons
 Summary(pl.UTF-8):	%{_pearname} - zamiana skryptów PHP w demony
 Name:		php-pear-%{_pearname}
 Version:	0.5.0
-Release:	1
+Release:	2
 License:	New BSD License
 Group:		Development/Languages/PHP
 Source0:	http://pear.php.net/get/%{_pearname}-%{version}.tgz
@@ -91,6 +91,9 @@ rmdir docs/System_Daemon/docs docs/System_Daemon
 # not part of the package, some tools to make _this_ pear package.
 rm -rf ./%{php_pear_dir}/tools
 rm -f ./%{php_pear_dir}/{package,test}.php
+
+# duplicate: we also package these
+rm -rf examples/System
 
 %install
 rm -rf $RPM_BUILD_ROOT
