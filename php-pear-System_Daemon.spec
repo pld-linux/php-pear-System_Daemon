@@ -68,8 +68,8 @@ Ta klasa ma w PEAR status: %{_status}.
 Summary:	Tests for PEAR::%{_pearname}
 Summary(pl.UTF-8):	Testy dla PEAR::%{_pearname}
 Group:		Development/Languages/PHP
-AutoReq:	no
 Requires:	%{name} = %{version}-%{release}
+AutoReq:	no
 AutoProv:	no
 
 %description tests
@@ -81,10 +81,24 @@ Testy dla PEAR::%{_pearname}.
 %prep
 %pear_package_setup
 
+# examples fixups
+mv docs/%{_pearname}/examples .
+
+# pear/docs -> docs
+mv docs/%{_pearname}/docs/* docs
+rmdir docs/System_Daemon/docs docs/System_Daemon
+
+# not part of the package, some tools to make _this_ pear package.
+rm -rf ./%{php_pear_dir}/tools
+rm -f ./%{php_pear_dir}/{package,test}.php
+
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{php_pear_dir}
+install -d $RPM_BUILD_ROOT{%{php_pear_dir},%{_bindir}}
 %pear_package_install
+
+install -d $RPM_BUILD_ROOT{%{php_pear_dir},%{_bindir},%{_examplesdir}/%{name}-%{version}}
+cp -a examples/*  $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -97,15 +111,13 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc install.log
-%doc docs/System_Daemon/{docs,examples}
+%doc docs/*
 %{php_pear_dir}/.registry/*.reg
 %{php_pear_dir}/System/Daemon
 %{php_pear_dir}/System/Daemon.php
-%{php_pear_dir}/tools/changelog_gen.php
-%{php_pear_dir}/tools/package_gen.php
-%{php_pear_dir}/package.php
-%{php_pear_dir}/test.php
 %{php_pear_dir}/data/System_Daemon
+
+%{_examplesdir}/%{name}-%{version}
 
 %files tests
 %defattr(644,root,root,755)
