@@ -1,26 +1,27 @@
 %include	/usr/lib/rpm/macros.php
 %define		_class		System
 %define		_subclass	Daemon
-%define		_status		alpha
+%define		_status		beta
 %define		_pearname	System_Daemon
 Summary:	%{_pearname} - Turn PHP scripts into Linux daemons
 Summary(pl.UTF-8):	%{_pearname} - zamiana skryptów PHP w demony
 Name:		php-pear-%{_pearname}
-Version:	0.8.0
+Version:	0.10.3
 Release:	1
 License:	New BSD License
 Group:		Development/Languages/PHP
 Source0:	http://pear.php.net/get/%{_pearname}-%{version}.tgz
-# Source0-md5:	2672ccf69d65c3ec170191884a094064
+# Source0-md5:	00dad1b9912238d9c99cf50bd5efc87d
 URL:		http://pear.php.net/package/System_Daemon/
 BuildRequires:	php-pear-PEAR
 BuildRequires:	rpm-php-pearprov >= 4.4.2-11
+BuildRequires:	rpmbuild(macros) >= 1.571
 Requires:	php-pear
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # exclude optional dependencies
-%define		_noautoreq	'pear(Log.*)'
+%define		_noautoreq	pear(Log.*)
 
 %description
 System_Daemon is a PHP class that allows developers to create their
@@ -69,8 +70,8 @@ Summary:	Tests for PEAR::%{_pearname}
 Summary(pl.UTF-8):	Testy dla PEAR::%{_pearname}
 Group:		Development/Languages/PHP
 Requires:	%{name} = %{version}-%{release}
-AutoReq:	no
 AutoProv:	no
+AutoReq:	no
 
 %description tests
 Tests for PEAR::%{_pearname}.
@@ -92,6 +93,8 @@ rmdir docs/System_Daemon/docs docs/System_Daemon
 rm -rf ./%{php_pear_dir}/tools
 rm -f ./%{php_pear_dir}/{package,test}.php
 
+mv .%{php_pear_dir}/README.md .
+
 # duplicate: we also package these
 rm -rf examples/System
 
@@ -106,14 +109,13 @@ cp -a examples/*  $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post
-if [ -f %{_docdir}/%{name}-%{version}/optional-packages.txt ]; then
-	cat %{_docdir}/%{name}-%{version}/optional-packages.txt
-fi
+%post -p <lua>
+%pear_package_print_optionalpackages
 
 %files
 %defattr(644,root,root,755)
-%doc install.log
+%doc install.log optional-packages.txt
+%doc README.md
 %doc docs/*
 %{php_pear_dir}/.registry/*.reg
 %{php_pear_dir}/System/Daemon
