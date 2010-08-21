@@ -1,17 +1,17 @@
 %include	/usr/lib/rpm/macros.php
-%define		_class		System
-%define		_subclass	Daemon
 %define		_status		beta
 %define		_pearname	System_Daemon
 Summary:	%{_pearname} - Turn PHP scripts into Linux daemons
 Summary(pl.UTF-8):	%{_pearname} - zamiana skryptów PHP w demony
 Name:		php-pear-%{_pearname}
 Version:	0.10.3
-Release:	1
+Release:	2
 License:	New BSD License
 Group:		Development/Languages/PHP
 Source0:	http://pear.php.net/get/%{_pearname}-%{version}.tgz
 # Source0-md5:	00dad1b9912238d9c99cf50bd5efc87d
+Source1:	PLD.php
+Source2:	template_PLD.sh
 URL:		http://pear.php.net/package/System_Daemon/
 BuildRequires:	php-pear-PEAR
 BuildRequires:	rpm-php-pearprov >= 4.4.2-11
@@ -102,6 +102,10 @@ rm -rf examples/System
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{php_pear_dir},%{_bindir}}
 %pear_package_install
+
+# Add PLD Linux OS system
+cp -a %{SOURCE1} $RPM_BUILD_ROOT%{php_pear_dir}/System/Daemon/OS
+cp -a %{SOURCE2} $RPM_BUILD_ROOT%{php_pear_dir}/data/System_Daemon/data/template_PLD
 
 install -d $RPM_BUILD_ROOT{%{php_pear_dir},%{_bindir},%{_examplesdir}/%{name}-%{version}}
 cp -a examples/*  $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
