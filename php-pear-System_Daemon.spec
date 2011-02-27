@@ -1,15 +1,17 @@
-%include	/usr/lib/rpm/macros.php
 %define		_status		beta
 %define		_pearname	System_Daemon
+%define		subver		RC1
+%define		rel			1
+%include	/usr/lib/rpm/macros.php
 Summary:	%{_pearname} - Turn PHP scripts into Linux daemons
 Summary(pl.UTF-8):	%{_pearname} - zamiana skryptów PHP w demony
 Name:		php-pear-%{_pearname}
-Version:	0.10.3
-Release:	3
+Version:	1.0.0
+Release:	0.%{subver}.%{rel}
 License:	New BSD License
 Group:		Development/Languages/PHP
-Source0:	http://pear.php.net/get/%{_pearname}-%{version}.tgz
-# Source0-md5:	00dad1b9912238d9c99cf50bd5efc87d
+Source0:	http://pear.php.net/get/%{_pearname}-%{version}%{subver}.tgz
+# Source0-md5:	f51cf950b7ab917ff5dbbbaf726aed14
 Source1:	PLD.php
 Source2:	template_PLD.sh
 URL:		http://pear.php.net/package/System_Daemon/
