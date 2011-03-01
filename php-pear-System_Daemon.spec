@@ -1,7 +1,7 @@
 %define		_status		beta
 %define		_pearname	System_Daemon
 %define		subver		RC1
-%define		rel			1
+%define		rel			2
 %include	/usr/lib/rpm/macros.php
 Summary:	%{_pearname} - Turn PHP scripts into Linux daemons
 Summary(pl.UTF-8):	%{_pearname} - zamiana skryptów PHP w demony
