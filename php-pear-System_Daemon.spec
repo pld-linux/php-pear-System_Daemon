@@ -1,23 +1,21 @@
-%define		_status		beta
-%define		_pearname	System_Daemon
-%define		subver		RC1
-%define		rel			3
+%define		status		stable
+%define		pearname	System_Daemon
 %include	/usr/lib/rpm/macros.php
-Summary:	%{_pearname} - Turn PHP scripts into Linux daemons
-Summary(pl.UTF-8):	%{_pearname} - zamiana skryptów PHP w demony
-Name:		php-pear-%{_pearname}
+Summary:	%{pearname} - Turn PHP scripts into Linux daemons
+Summary(pl.UTF-8):	%{pearname} - zamiana skryptów PHP w demony
+Name:		php-pear-%{pearname}
 Version:	1.0.0
-Release:	0.%{subver}.%{rel}
+Release:	1
 License:	New BSD License
 Group:		Development/Languages/PHP
-Source0:	http://pear.php.net/get/%{_pearname}-%{version}%{subver}.tgz
-# Source0-md5:	f51cf950b7ab917ff5dbbbaf726aed14
+Source0:	http://pear.php.net/get/%{pearname}-%{version}.tgz
+# Source0-md5:	95b8a56bf6e92ad9daa2d3703bd2ba67
 Source1:	PLD.php
 Source2:	template_PLD.sh
 URL:		http://pear.php.net/package/System_Daemon/
 BuildRequires:	php-pear-PEAR
 BuildRequires:	rpm-php-pearprov >= 4.4.2-11
-BuildRequires:	rpmbuild(macros) >= 1.571
+BuildRequires:	rpmbuild(macros) >= 1.580
 Requires:	php-pear
 Suggests:	php-pear-Log
 Obsoletes:	php-pear-System_Daemon-tests
@@ -47,7 +45,7 @@ daemons, and for example includes:
    SYSTEM_DAEMON_LOG_ for (in)dependency reasons,
  - Set options like max RAM usage
 
-In PEAR status of this package is: %{_status}.
+In PEAR status of this package is: %{status}.
 
 %description -l pl.UTF-8
 System_Daemon to klasa PHP pozwalająca programiście na tworzenie w
@@ -67,16 +65,16 @@ samodzielnych demonów. Inna funkcjonalność to między innymi:
    SYSTME_DAEMON_LOG_ dla zachowania niezależności od PEAR,
  - ustawianie opcji takich jak maksymalne wykorzystanie pamięci RAM.
 
-Ta klasa ma w PEAR status: %{_status}.
+Ta klasa ma w PEAR status: %{status}.
 
 %prep
 %pear_package_setup
 
 # examples fixups
-mv docs/%{_pearname}/examples .
+mv docs/%{pearname}/examples .
 
 # pear/docs -> docs
-mv docs/%{_pearname}/docs/* docs
+mv docs/%{pearname}/docs/* docs
 rmdir docs/System_Daemon/docs docs/System_Daemon
 
 # not part of the package, some tools to make _this_ pear package.
