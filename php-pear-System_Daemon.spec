@@ -1,6 +1,5 @@
 %define		status		stable
 %define		pearname	System_Daemon
-%include	/usr/lib/rpm/macros.php
 Summary:	%{pearname} - Turn PHP scripts into Linux daemons
 Summary(pl.UTF-8):	%{pearname} - zamiana skryptów PHP w demony
 Name:		php-pear-%{pearname}
